@@ -1,6 +1,8 @@
 var canvas = document.getElementById("canvas");
 var canvasContext = canvas.getContext("2d");
 var mas = [];
+var count =0;
+var timer;
 
 canvas.onclick = function (event)
 {
@@ -13,7 +15,7 @@ canvas.onclick = function (event)
     mas[x][y] = 1;
     console.log(mas);
     drawLife();
-};
+}
 
 function Life ()
 {
@@ -42,4 +44,83 @@ function drawLife()
         }
     }
 }
-
+function startLife()
+{
+    var mas2 = [];
+    for (var i =0 ; i < 30 ;i++ )
+    {
+        mas2[i] = [];
+        for (var j = 0; j <30 ; j++)
+        {
+           var  neighbors =0
+            if (mas[fpm(i)-1][j] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[i][fpp(j) + 1] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[fpp(i)+1][j] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[i][fpm(j) - 1] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[fpm(i)-1][fpp(j)+1] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[fpp(i)+1][fpp(j)+1] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[fpp(i)+1][fpm(j)-1] == 1)
+            {
+                neighbors++;
+            }
+            if (mas[fpm(i)-1][fpm(j)-1] == 1)
+            {
+                neighbors++;
+            }
+            if(neighbors ==3)
+            {
+                mas2[i][j]=1
+            }
+            else if(neighbors < 2 || neighbors >3)
+            {
+                mas2[i][j] =0
+            }
+        }
+    }
+    mas = mas2;
+    drawLife();
+    count++;
+    document.getElementById('count').innerHTML = count;
+    timer = setTimeout(startLife, 300);
+}
+function fpm(i)
+{
+    if (i==0)
+    {
+        return 30;
+    }
+    else
+    {
+        return i;
+    }
+}
+function fpp(i)
+{
+    if (i==29)
+    {
+        return -1;
+    }
+    else
+    {
+        return i;
+    }
+}
+document.getElementById('start').onclick = startLife;
