@@ -15,7 +15,7 @@ canvas.onclick = function (event)
     mas[x][y] = 1;
     console.log(mas);
     drawLife();
-}
+};
 
 function Life ()
 {
@@ -86,6 +86,10 @@ function startLife()
                 neighbors++;
             }
             if(neighbors ==3)
+            {
+                mas2[i][j]=1
+            }
+            if (neighbors ==2 && mas2[i][j]==1 ||neighbors ==3)
             {
                 mas2[i][j]=1
             }
